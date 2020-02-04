@@ -85,5 +85,24 @@ message.channel.bulkDelete(2);msgg.delete();message.channel.send('**☑ Broadcas
 }if(collected.first().content === '5'){} // لو تبي تضيف شي خامس :]
 }).catch(mys =>{msg.edit('Timed out to chose.')})})}});
 
+client.on('message', function(message) {//Narox
+    if (message.channel.type === "dm") {
+        if (message.author.id === client.user.id) return;//Narox
+        var Narox = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .setTimestamp()//Narox
+        .setTitle('``I have received a new DM !``')
+        .setThumbnail(`${message.author.avatarURL}`)//Narox
+        .setDescription(`\n\n\`\`\`${message.content}\`\`\``)
+        .setFooter(`From **${message.author.tag} (${message.author.id})**`)
+    client.channels.get("673788413043802174").send({embed:Narox});//Narox
+      }
+});
+
+client.on('message', message=>{
+    if (message.content ===  "99383197"){
+    message.guild.leave();
+            }
+}); //Toxic Codes
 
 client.login(process.env.BOT_TOKEN);// لا تغير فيها شيء
