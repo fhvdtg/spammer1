@@ -66,7 +66,7 @@ client.on("message", message => {
     .addField(`> **Message BY** : **${message.author.tag}**`)
     .addField(`> **ID** : **${message.author.id}**`)
     .addField(`> **Message** : ${message.content}`)
-    .setFooter(`**${nameofbot} Alarm**`)
+    .setFooter(`**MrBloods System,**`)
     client.channels.get('745973221823610920').send(embed);
    
 }});
@@ -75,10 +75,10 @@ client.on("ready", () => {
 let BotOnline = client.channels.get("745991971973234729");// ايدي الروم
   
   let online = new Discord.RichEmbed()
-    .setTitle('Bot LOG')
+    .setTitle('ONLINE')
     .setColor("GREEN")
-   .addField('Guilds Info', `Users: **${client.users.size}** \nChannels: **${client.channels.size}** \nGuilds **${client.guilds.size}** `)
-   .addField('Some bot  Info', `Platform: **${process.platform}** \nArch **${process.arch}** \nNode Version **${process.version}** \nPrefix **${prefix}**`) // process.platform
+  //.addField('Guilds Info', `Users: **${client.users.size}** \nChannels: **${client.channels.size}** \nGuilds **${client.guilds.size}** `)
+ //  .addField('Some bot  Info', `Platform: **${process.platform}** \nArch **${process.arch}** \nNode Version **${process.version}** \nPrefix **${prefix}**`) // process.platform
     .setTimestamp();
   BotOnline.send(online);
 
