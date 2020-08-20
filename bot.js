@@ -50,7 +50,7 @@ client.on ("message" , message => {
     .setTitle('New message !')
     .addField(`> **Message BY** : **${message.author.tag}**`)
     .addField(`> **ID** : **${message.author.id}**`)
-    .SetDescription(`> **Message** : ${message.content}`)
+    .setDescription(`> **Message** : ${message.content}`)
     .setFooter(`**MrBloods Bot**`)
     client.channels.get('745973221823610920').send(embed);
    
