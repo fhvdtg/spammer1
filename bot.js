@@ -42,13 +42,13 @@ client.on ("message" , message => {
   }
 });
 
-dmBot.on("message", (message) => {
+client.on("message", (message) => {
     
     
     if (message.channel.type === "dm") { 
         var args = message.content.split(" ").slice(0)
         var args = args.slice(0).join(" ")
-        var BOT_ID = dmBot.user.id
+        var BOT_ID = client.user.id
         var userID = message.author.id
         if (message.content.startsWith(config.PREFIX)) return message.channel.send(":x: Please use commands in real server! :x:") 
         if (message.author.bot) return;
@@ -65,8 +65,8 @@ dmBot.on("message", (message) => {
             .setTitle("*Message**:")
             .setFooter("This Message Was Sent By: " + message.author.username + " ", message.author.avatarURL)
             .setTimestamp()
-        dmBot.guilds.get(config.SERVER_ID).channels.get(config.CHANNEL_ID).send(embed).catch(console.log(`Message recieved from ${userID}!(${message.author.username})`))
-        dmBot.guilds.get(config.SERVER_ID).channels.get(config.CHANNEL_ID).send({embed: {
+        client.guilds.get(config.SERVER_ID).channels.get(config.CHANNEL_ID).send(embed).catch(console.log(`Message recieved from ${userID}!(${message.author.username})`))
+        client.guilds.get(config.SERVER_ID).channels.get(config.CHANNEL_ID).send({embed: {
             "description": `${config.PREFIX}reply ${message.author.id} <message>`,
         }
     })
@@ -87,7 +87,7 @@ dmBot.on("message", (message) => {
             .addBlankField(true)
             .setTitle("**Message**:")
             .setFooter("This Message Was Sent By: " + message.author.username + " ", message.author.avatarURL)
-        dmBot.users.get(userID).send(embed).catch(console.log(`Message was sent to ${userID}!`))
+        client.users.get(userID).send(embed).catch(console.log(`Message was sent to ${userID}!`))
         if (message.author.bot) return;
         message.channel.send("Your Message was Sent!").then(msg => msg.delete(3000)).catch(console.error)
 
