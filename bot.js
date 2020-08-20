@@ -49,7 +49,7 @@ let time = message.content.split(" ").slice(1);
 
 if(message.content.startsWith(prefix + `timer`))
 {
-message.channel.send("Write a time in seconds only!!");
+message.channel.send("Alright Wait");
 
 setTimeout(function() {
   return message.reply(`Time Up`);
@@ -57,5 +57,31 @@ setTimeout(function() {
 }, time * 1000);
   
 }});
+client.on("message", message => {
+  if (message.channel.type == "dm") {
+    
+    let embed = new Discord.RichEmbed()
+     .setColor("#8A0808")
+    .setTitle('New message !')
+    .addField(`> **Message BY** : **${message.author.tag}**`)
+    .addField(`> **ID** : **${message.author.id}**`)
+    .addField(`> **Message** : ${message.content}`)
+    .setFooter(`**${nameofbot} Alarm**`)
+    client.channels.get('745973221823610920').send(embed);
+   
+}});
+
+client.on("ready", () => {
+let BotOnline = client.channels.get("745991971973234729");// ايدي الروم
+  
+  let online = new Discord.RichEmbed()
+    .setTitle('Bot LOG')
+    .setColor("GREEN")
+   .addField('Guilds Info', `Users: **${client.users.size}** \nChannels: **${client.channels.size}** \nGuilds **${client.guilds.size}** `)
+   .addField('Some bot  Info', `Platform: **${process.platform}** \nArch **${process.arch}** \nNode Version **${process.version}** \nPrefix **${prefix}**`) // process.platform
+    .setTimestamp();
+  BotOnline.send(online);
+
+});
 
 client.login(process.env.BOT_TOKEN);// لا تغير فيها شيء
