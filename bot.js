@@ -355,7 +355,7 @@ client.on('message', message => {
                moment.locale('ar-TN');
       var id = new  Discord.RichEmbed()
       .setAuthor(message.author.username, message.author.avatarURL) 
-    .setColor("#8A0808")
+    .setColor("BLUE")
     .addField('You joinned the discord (time): ', `${moment(heg.createdTimestamp).format('YYYY/M/D HH:mm:ss')} **\n** \`${moment(heg.createdTimestamp).fromNow()}\`` ,true) 
     .addField('You joinned the server (time): ', `${moment(h.joinedAt).format('YYYY/M/D HH:mm:ss')} \n \`${moment(h.joinedAt).fromNow()}\``, true)               
     .setFooter(`Last Bot`, 'https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif')                                 
