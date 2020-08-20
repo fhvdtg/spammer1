@@ -49,9 +49,9 @@ client.on ("message" , message => {
     .setColor("#8A0808")
     .setTitle('New message !')
     .setDescription(`> **Message BY** : **${message.author.tag}**`)
-    .setDescription(`> **ID** : **${message.author.id}**`)
-    .setDescription(`> **Message** : ${message.content}`)
-    .setFooter(`**MrBloods Bot**`)
+    (`> **ID** : **${message.author.id}**`)
+    (`> **Message** : ${message.content}`)
+    .setFooter(`MrBloods Bot`)
     client.channels.get('745973221823610920').send(embed);
    
 }});
