@@ -48,8 +48,8 @@ client.on ("message" , message => {
     let embed = new Discord.RichEmbed()
     .setColor("#8A0808")
     .setTitle('New message !')
-    .addFields(`> **Message by: `,`**${message.author.tag}**`)
-    .addFields(`> **ID** : **${message.author.id}**`)
+    .addFields(`> **Message by: **${message.author.tag}**`)
+    .addFields(`> **${message.author.tag} id: ** : **${message.author.id}**`)
     .addFields(`> **Message** : ${message.content}`)
     .setFooter(`MrBloods Bot`)
     client.channels.get('745973221823610920').send(embed);
