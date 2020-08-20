@@ -33,6 +33,8 @@ console.log("1")
 console.log("====================================")
 });
 
+ client.on("message", message => { if (message.content.startsWith(prefix + "test")) { message.channel.send("**EVERYTHING WORK** :white_check_mark:"); }});
+
 client.on ("message" , message => {
   if(message.content === prefix + "count"){
   const embed = new Discord.RichEmbed()
