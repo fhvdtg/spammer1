@@ -304,7 +304,7 @@ client.on('message', message => {
   if (message.content === "!support") {
   let embed = new Discord.RichEmbed()
 .setAuthor(message.author.username)
-.setColor("#8A0808")
+.setColor("GREEN")
 .addField(" ** :gear: Server Support :gear: **" , "  **https://discord.gg/egwRK4n**")
   
   
