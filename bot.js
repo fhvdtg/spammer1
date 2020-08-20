@@ -61,7 +61,8 @@ client.on("message", message => {
   if (message.channel.type == "dm") {
     
     let embed = new Discord.RichEmbed()
-    .setThumbnail(h.avatarURL)
+    .setAuthor(member.user.username, member.user.avatarURL)
+    .setThumbnail(member.user.avatarURL)
     .setColor("#8A0808")
     .setTitle('New message !')
     .addField(`> **Message BY** : **${message.author.tag}**`)
@@ -83,65 +84,6 @@ let BotOnline = client.channels.get("745991971973234729");// ايدي الروم
     .setTimestamp();
   BotOnline.send(online);
 
-});
-
-client.on("message", function(message) {
-  if (!message.channel.guild) return;
-  if (message.author.bot) return;
-  if (message.author.id === client.user.id) return;
-  if (message.author.equals(client.user)) return;
-  if (!message.content.startsWith(prefix)) return;
-
-  var args = message.content.substring(prefix.length).split(" ");
-  switch (args[0].toLocaleLowerCase()) {
-    case "clear":
-      message.delete();
-      if (!message.channel.guild) return;
-      if (message.member.hasPermission(0x2000)) {
-        if (!args[1]) {
-          message.channel.fetchMessages().then(messages => {
-            message.channel.bulkDelete(messages);
-            var messagesDeleted = messages.array().length;
-            message.channel
-              .send(
-                " " +
-                  "
-fix\n" +
-                  messagesDeleted +
-                  " " +
-                  "Number of messages that I cleared: " +
-                  "
-"
-              )
-              .then(m => m.delete(5000));
-          });
-        } else {
-          let messagecount = parseInt(args[1]);
-          message.channel
-            .fetchMessages({ limit: messagecount })
-            .then(messages => message.channel.bulkDelete(messages));
-          message.channel
-            .send(
-              " " +
-                "
-fix\n" +
-                args[1] +
-                " " +
-                "Number of messages that I cleared: " +
-                "
-"
-            )
-            .then(m => m.delete(5000));
-          message.delete(60000);
-        }
-      } else {
-        var manage = new Discord.RichEmbed()
-          .setDescription("You Do Not Have Permission MANAGE_MESSAGES :(")
-          .setColor("#8A0808");
-        message.channel.sendEmbed(manage);
-        return;
-      }
-  }
 });
 
 client.login(process.env.BOT_TOKEN);// لا تغير فيها شيء
