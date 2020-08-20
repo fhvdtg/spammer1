@@ -1,120 +1,59 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-var prefix ="!";
-var adminprefix = '!'
+var prefix ="-";
+var adminprefix = '-'
 const developers = ["436918120184021012"]
-client.on('message', message => {
-    var argresult = message.content.split(` `).slice(1).join(' ');
-      if (!developers.includes(message.author.id)) return;
-      
-  if (message.content.startsWith(adminprefix + 'setp')) {
-    client.user.setGame(argresult);
-      message.channel.send(`**Bot Playing By  !                     | دِمَــــــــآء   ${argresult}**`)
-  } else 
-     if (message.content === (adminprefix + "leave")) {
-    message.guild.leave();        
-  } else  
-  if (message.content.startsWith(adminprefix + 'setw')) {
-  client.user.setActivity(argresult, {type:'WATCHING'});
-      message.channel.send(`**Bot Watching By **Bot Listening By !                     | دِمَــــــــآء  ${argresult}**`)
-  } else 
-  if (message.content.startsWith(adminprefix + 'setl')) {
-  client.user.setActivity(argresult , {type:'LISTENING'});
-      message.channel.send(`**Bot Listening By !                     |دِمَــــــــآء   ${argresult}**`)
-  } else 
-  if (message.content.startsWith(adminprefix + 'sets')) {
-    client.user.setGame(argresult, "https://www.twitch.tv/Bloods");
-      message.channel.send(`**Bot Streaming By !                     | دِمَــــــــآء`)
+
+ client.on('ready', function(){
+    var ms = 10000 ;
+    var setGame = ['Dev: MrBloods','MrBloods'];
+    var i = -1;
+    var j = 0;
+    setInterval(function (){
+        if( i == -1 ){
+            j = 1;
+        }
+        if( i == (setGame.length)-1 ){
+            j = -1;
+        }
+        i = i+j;
+        client.user.setGame(setGame[i],`http://www.twitch.tv/MrBloods`);
+    }, ms);
+console.log("==================================")
+console.log("1")
+console.log("2")
+console.log("3")
+console.log("=========> Bot Online <=========")
+console.log("========> MrBloodsBot <========")
+console.log("=======> Token Bot **** <=======")
+console.log("3")
+console.log("2")
+console.log("1")
+console.log("====================================")
+});
+
+client.on ("message" , message => {
+  if(message.content === prefix + "count"){
+  const embed = new Discord.RichEmbed()
+  .setTitle(" Bot Server Count ")
+  .setDescription(`im in [${client.guilds.size}] servers`)
+  .setColor("#8A0808")
+  message.channel.send(embed)
   }
-  if (message.content.startsWith(adminprefix + 'setname')) {
-  client.user.setUsername(argresult).then
-      message.channel.send(`**Bot Change Name By !                     | دِمَــــــــآء : ..**${argresult}** `)
-} else
-if (message.content.startsWith(adminprefix + 'setavatar')) {
-  client.user.setAvatar(argresult);
-    message.channel.send(`**Bot Change Avatar By !                     | دِمَــــــــآء  : :**${argresult}** `);
-}
 });
 
-
-client.on('message', message => {
-if(!message.content.startsWith(prefix)) return;
-let command = message.content.split(" ")[0];
-command = command.slice(prefix.length);if (command == "bc") {if(!message.member.roles.find('name','bc')) {
-if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send(`**⛔ you must have \`ADMINISTRATOR\` premission**, or role called "bc"`)}
-let args = message.content.split(" ").slice(1).join(" ");
-if(!args) return message.channel.send(`**:rolling_eyes: please type the broadcast message**`)
-let filter = m => m.author.id == message.author.id
-let idx = 0, fails = 0;let broadcastt = new Discord.RichEmbed().setColor('#36393e')
-.addField(`**[1] broadcast for all members\n\n[2] broadcast for online members\n\n[3] broadcast for a specific role\n\n[4] broadcast with photo\n\n[0] to cansel**`,`** **`)
-.setDescription(`**Please type the number of your chose**`)
-.setFooter('you can add to the message [user] = mention the user')
-message.channel.send(broadcastt).then(msg => {
-message.channel.awaitMessages(filter, {max: 1,time: 90000,errors: ['time']})
-.then(collected => {if(collected.first().content === '1') {msg.delete(),message.channel.send(`**☑ Broadcast begin send....**`).then(m => {
-message.guild.members.map(member => {setTimeout(() => {member.send(args.replace('[user]',member).replace('[icon]',`https://cdn.discordapp.com/icons/${message.guild.id}/${message.guild.icon}.png?size=1024`)).then(() => {}).catch((err) => {});},);});})}
-if(collected.first().content === '2') {msg.delete(),message.channel.bulkDelete(1),message.channel.send(`**☑ Broadcast begin send....**`);
-message.guild.members.filter(m => m.presence.status === 'online').forEach(m => {m.send(args.replace('[user]', m))})
-message.guild.members.filter(m => m.presence.status === 'dnd').forEach(m => {m.send(args.replace('[user]', m)) })
-return message.guild.members.filter(m => m.presence.status === 'idle').forEach(m => {m.send(args.replace('[user]', m)) })}
-if(collected.first().content === '0') {msg.delete(),message.channel.bulkDelete(1);return message.channel.send(`**Broadcast Has Been Canseled**`);}
-if(collected.first().content === '3') {msg.delete();message.channel.bulkDelete(1);
-message.channel.send('**Please Type the role name or id.**');
-message.channel.awaitMessages(filter, {max: 1,time: 40000,errors: ['time']}).then(t => {
-let R = t.first().content;
-let role = message.guild.roles.find('name',R) || message.guild.roles.get(R);
-if(!role) return message.channel.send('**😕 I Can\'t find this role please try again**'),msg.delete();
-message.channel.bulkDelete(2);
-if(role.members.size < 1) return message.channel.send('**there is no one have this role **😕');;
-let XYZ = new Discord.RichEmbed().setTitle('**:ballot_box_with_check: Broadcast begin send....**').setDescription(`**For the role: ${role}**`).setColor(role.color)
-message.channel.send(XYZ)
-message.guild.members.filter(m => m.roles.get(role.id)).forEach(n => {setTimeout(() => {n.send(args.replace('[user]',n)).catch((err) => {});});});}).catch(err =>{});}
-if(!collected.first().content.includes(['1','2','3','4','0'])) {msg.edit('Canceled.')}
-if(collected.first().content === '4') { msg.delete();
-message.channel.send('**✅ Please Type the photo link now**,Type "cansel" to cansel.').then(msgg =>{
-message.channel.awaitMessages(filter, {max: 1,time: 50000,errors: ['time']}).then(XX => {
-let photo = XX.first().content; if(photo == 'cansel') {message.channel.bulkDelete(2); return message.channel.send('**Broadcast Has Been Canseled**')}
-let embed = new Discord.RichEmbed().setImage(photo).setTitle(`**are you sure you want to send this? \`[y,n]\`**`).setColor('#36393e')
-message.channel.send(embed).catch(e =>{return message.channel.send('**The Photo link is wrong :x:**')});
-let filter = m => m.author.id == message.author.id
-message.channel.awaitMessages(filter, {max: 1,time: 90000,errors: ['time']}).then(XD => {if(XD.first().content === 'y') {
-let bc = new Discord.RichEmbed().setTitle(`${args}`).setImage(photo).setFooter(message.guild.name,`https://cdn.discordapp.com/icons/${message.guild.id}/${message.guild.icon}.png?size=1024`)
-message.channel.bulkDelete(2);msgg.delete();message.channel.send('**☑ Broadcast begin send....**');message.guild.members.map(member => {setTimeout(() => {member.send(bc)}
-)})}if(XD.first().content == 'n') {message.channel.bulkDelete(2);message.channel.send('**Broadcast Has Been Canseled**')}
-})}).catch(myst =>{msgg.edit('Timed out.');})})
-}if(collected.first().content === '5'){} // لو تبي تضيف شي خامس :]
-}).catch(mys =>{msg.edit('Timed out to chose.')})})}});
-
-client.on('message', function(message) {//Narox
-    if (message.channel.type === "dm") {
-        if (message.author.id === client.user.id) return;//Narox
-        var Narox = new Discord.RichEmbed()
-        .setColor('RANDOM')
-        .setTimestamp()//Narox
-        .setTitle('``I have received a new DM !``')
-        .setThumbnail(`${message.author.avatarURL}`)//Narox
-        .setDescription(`\n\n\`\`\`${message.content}\`\`\``)
-        .setFooter(`From **${message.author.tag} (${message.author.id})**`)
-    client.channels.get("673788413043802174").send({embed:Narox});//Narox
-      }
-});
-
-client.on('message', message=>{
-    if (message.content ===  "99383197"){
-    message.guild.leave();
-            }
-}); //Toxic Codes
-
-client.on('message', message => {
-    if (message.content.toLowerCase().startsWith(prefix+"tops")) {
-        const top = client.guilds.sort((a, b) => a.memberCount - b.memberCount).array().reverse()
-     let tl = "";
-      for (let i=0;i<=25;i++) {
-          if (!top[i]) continue;
-         tl += i+" - "+top[i].name+" : "+top[i].memberCount+"\n"
-      }
-      message.channel.send(tl)
-    }
-});
+ client.on("message", message => {
+  if (message.channel.type == "dm") {
+    
+    let embed = new Discord.RichEmbed()
+    .setColor("#8A0808")
+    .setTitle('New message !')
+    .addField(`> **Message BY** : **${message.author.tag}**`)
+    .addField(`> **ID** : **${message.author.id}**`)
+    .addField(`> **Message** : ${message.content}`)
+    .setFooter(`**MrBloods Bot**`)
+    client.channels.get('745973221823610920').send(embed);
+   
+}});
 
 client.login(process.env.BOT_TOKEN);// لا تغير فيها شيء
