@@ -64,6 +64,7 @@ client.on("message", message => {
     .setFooter("ShopBot by Odar", "https://cdn.discordapp.com/avatars/442410451121209365/4272634f3ab276ff263ff16ca3aa560a.png?size=2048")
 
     message.channel.send(embed)
+     }
 });
  
 client.login(process.env.BOT_TOKEN);
