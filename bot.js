@@ -126,30 +126,23 @@ message.channel.send(embed)
 
 });
 
- client.on('message', message => {
-	 var prefix ="!";
- if(message.content.startsWith(prefix +"server")){
-if(!message.channel.guild) return message.reply(' ');
-const millis = new Date().getTime() - message.guild.createdAt.getTime();
-const now = new Date();
-dateFormat(now, 'dddd, mmmm dS, yyyy, h:MM:ss TT');
-const verificationLevels = ['None', 'Low', 'Medium', 'Insane', 'Extreme'];
-const days = millis / 1000 / 60 / 60 / 24;
-let roles = client.guilds.get(message.guild.id).roles.map(r => r.name);
-var embed  = new Discord.RichEmbed()
-.setAuthor(message.guild.name, message.guild.iconURL)
-.addField("**🆔 Server ID:**", message.guild.id,true)
-.addField("**📅 Created On**", message.guild.createdAt.toLocaleString(),true)
-.addField("**👑 Owned by**",`${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`)
-.addField("👥 Members ",`[${message.guild.memberCount}]`,true)
-.addField('**💬 Channels **',`**${message.guild.channels.filter(m => m.type === 'text').size}**` + ' text | Voice  '+ `**${message.guild.channels.filter(m => m.type === 'voice').size}** `,true)
-.addField("**🌍 Others **" , message.guild.region,true)
-.addField("** 🔐 Roles **",`**[${message.guild.roles.size}]** Role `,true)
-.setColor('#000000')
-message.channel.sendEmbed(embed)
-
-}
-});
+client.on("message", msg => {
+    var prefix = '!'//البركفس
+    if(msg.content.startsWith(prefix + 'server')){
+      let embed = new Discord.RichEmbed()
+      .setThumbnail(msg.guild.iconURL)
+      .setColor("RANDOM")
+      .addField("Year📆",msg.guild.createdAt.getFullYear())
+      .addField("Hour📆", msg.guild.createdAt.getHours())
+      .addField("Day📆", msg.guild.createdAt.getDay())
+      .addField("Month📆", msg.guild.createdAt.getMonth())
+      .addField("Minutes📆", msg.guild.createdAt.getMinutes())
+      .addField("Seconds📆", msg.guild.createdAt.getSeconds())
+      .addField("Full📆", msg.guild.createdAt.toLocaleString())
+      .setTimestamp()
+      msg.channel.send(embed);
+    }
+  });
 
 client.on('message', message => {
     if (message.content.startsWith("!bot")) {
@@ -633,5 +626,106 @@ var prefix = "!";
     }
        
 });
+
+client.on('message', message => {
+    if (message.content === ('!info')) {
+    message.channel.send({
+        embed: new Discord.RichEmbed()
+            .setAuthor(client.user.username,client.user.avatarURL)
+            .setThumbnail(client.user.avatarURL)
+            .setColor('RANDOM')
+            .addField('**Bot Ping**🚀 :' , [`${Date.now() - message.createdTimestamp}` + 'MS'], true)
+            .addField('**Servers**📚 :', [client.guilds.size], true)
+            .addField('**Channels**📝 :' , `[ ${client.channels.size} ]` , true)
+            .addField('**Users**🔮 :' ,`[ ${client.users.size} ]` , true)
+            .addField('**Bot Name**🔰 :' , `[ ${client.user.tag} ]` , true)
+            .addField('**Bot Owner**👑 :' , `[<@436918120184021012>]` , true)
+            .setFooter(message.author.username, message.author.avatarURL)
+    })
+}
+});
+
+client.on('message', message => { //zine pixel
+if(message.content.startsWith(prefix + "server")){  
+if(!message.channel.guild) return message.channel.send(` | This Command is used only in servers!`);
+const millis = new Date().getTime() - message.guild.createdAt.getTime();
+const now = new Date();
+const verificationLevels = ['None', 'Low', 'Medium', 'Insane', 'Extreme'];
+const days = millis / 1000 / 60 / 60 / 24;
+var embed  = new Discord.RichEmbed()
+.setAuthor(message.guild.name, message.guild.iconURL)
+.addField("✽** Server ID:**", `» ${message.guild.id}`,true)
+.addField("✽** Created On**", `» ${message.guild.createdAt.toLocaleString()}`,true)
+.addField("✽** Owned by**",`» ${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`)
+.addField("✽** Members**",`» ${message.guild.memberCount}`,true)
+.addField('✽** Channels **',`» **${message.guild.channels.filter(m => m.type === 'text').size}**` + ' TexT | VoicE  '+ `**${message.guild.channels.filter(m => m.type === 'voice').size}** `,true)
+.addField("✽** Region **" , `» ${message.guild.region}`,true)
+.setColor("#42A9C9") //zine pixel
+message.channel.sendEmbed(embed)
+ 
+}
+});
+
+client.on('message', msg => {
+  if(msg.content === 'prefix')
+  msg.reply('My Prefix is **!**')
+});
+
+client.on('message', message => {
+    if (message.author.bot) return;
+    if (message.content.startsWith("!say2")) {
+if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**You dont have** `ADMINISTRATOR` **permission**');
+var args = message.content.trim().split(/ +/g).slice(1);
+let cname = args[0];
+let chan = message.guild.channels.find(element => element.name === cname);
+if (chan) {
+    let text = args.slice(1).join(" ");
+    message.delete();
+    chan.send(text);
+} else {
+    let text = args.join(" ");
+    message.delete();
+    message.channel.send(text);
+   }
+}
+});
+
+client.on('message', message => {
+  if (!message.content.startsWith(prefix)) return;
+  var args = message.content.split(' ').slice(1);
+  var argresult = args.join(' ');
+  if (message.author.id !== '436918120184021012') return;
+
+if (message.content.startsWith(prefix + '99playing')) {
+  client.user.setGame(argresult);
+    message.channel.sendMessage(`**:white_check_mark:  : ${argresult}**`)
+} else 
+
+if (message.content.startsWith(prefix + '99watching')) {
+client.user.setActivity(argresult, {type:'WATCHING'});
+    message.channel.sendMessage(`**:white_check_mark:  : ${argresult}**`)
+} else 
+if (message.content.startsWith(prefix + '99listening')) {
+client.user.setActivity(argresult, {type:'LISTENING'});
+    message.channel.sendMessage(`**:white_check_mark: : ${argresult}**`)
+} else 
+
+if (message.content.startsWith(prefix + '99streaming')) {
+  client.user.setGame(argresult, "https://www.twitch.tv/Justin-Ly0001");
+    message.channel.sendMessage(`**:white_check_mark:  : ${argresult}**`)
+} else 
+	
+if (message.content.startsWith(prefix + '99name')) {
+      client.user.setUsername(argresult).then
+          message.channel.sendMessage(`**Name changed :white_check_mark: : ${argresult}**`)
+      return message.reply("**You**");
+    } else
+	    
+if (message.content.startsWith(prefix + '99image')) {
+      client.user.setAvatar(argresult);
+        message.channel.sendMessage(`**The bot image has been changed :white_check_mark: : ${argresult}**`);
+    
+    }
+    });	
 
 client.login(process.env.BOT_TOKEN);
