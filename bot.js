@@ -673,7 +673,7 @@ client.on('message', msg => {
 
 client.on('message', message => {
     if (message.author.bot) return;
-    if (message.content.startsWith("!say2")) {
+    if (message.content.startsWith("!say-system")) {
 if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**You dont have** `ADMINISTRATOR` **permission**');
 var args = message.content.trim().split(/ +/g).slice(1);
 let cname = args[0];
