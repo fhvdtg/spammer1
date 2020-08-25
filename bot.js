@@ -607,4 +607,31 @@ client.on("message", message => {
     }
 });
 
+client.on('message', message => {
+var prefix = "!";
+       if(message.content === prefix + "mutechannel") {
+                           if(!message.channel.guild) return message.reply('** This command only for servers**');
+
+   if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply(' **You Dont Have Perms**');
+              message.channel.overwritePermissions(message.guild.id, {
+            SEND_MESSAGES: false
+
+              }).then(() => {
+                  message.reply("**:white_check_mark: Success Has Been Locked Channel**")
+              });
+                }
+    if(message.content === prefix + "unmutechannel") {
+                        if(!message.channel.guild) return message.reply('** This command only for servers**');
+
+   if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('**You Dont Have Perms**');
+              message.channel.overwritePermissions(message.guild.id, {
+            SEND_MESSAGES: true
+
+              }).then(() => {
+                  message.reply("**:white_check_mark: Success Has Been UnLocked Channel**")
+              });
+    }
+       
+});
+
 client.login(process.env.BOT_TOKEN);
