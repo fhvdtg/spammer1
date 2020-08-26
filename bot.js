@@ -68,7 +68,7 @@ client.on("message", message => {
 });
 
  client.on('message', message => {   
-     if (message.content === "ping") {
+     if (message.content === "!ping") {
       const embed = new Discord.RichEmbed()
  
   .setColor("RANDOM")
